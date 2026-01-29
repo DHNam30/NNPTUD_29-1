@@ -448,6 +448,53 @@
             </button>
         </div>
 
+        <!-- Search, Filter, Sort Panel -->
+        <div class="control-panel">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">🔍 Search Posts</label>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by title..." onkeyup="filterAndDisplay()">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">🔽 Filter Status</label>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="sort-btn" onclick="setFilter('all'); filterAndDisplay()" id="filterAll">
+                            All Posts
+                        </button>
+                        <button class="sort-btn" onclick="setFilter('active'); filterAndDisplay()" id="filterActive">
+                            Active
+                        </button>
+                        <button class="sort-btn" onclick="setFilter('deleted'); filterAndDisplay()" id="filterDeleted">
+                            Deleted
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label class="form-label">📊 Sort By</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="sort-btn" onclick="setSortBy('viewsAsc'); filterAndDisplay()">
+                            <i class="fas fa-eye"></i> Views ↑
+                        </button>
+                        <button class="sort-btn" onclick="setSortBy('viewsDesc'); filterAndDisplay()">
+                            <i class="fas fa-eye"></i> Views ↓
+                        </button>
+                        <button class="sort-btn" onclick="setSortBy('commentsAsc'); filterAndDisplay()">
+                            <i class="fas fa-comments"></i> Comments ↑
+                        </button>
+                        <button class="sort-btn" onclick="setSortBy('commentsDesc'); filterAndDisplay()">
+                            <i class="fas fa-comments"></i> Comments ↓
+                        </button>
+                        <button class="sort-btn" onclick="setSortBy('titleAsc'); filterAndDisplay()">
+                            <i class="fas fa-sort-alpha-down"></i> Title A-Z
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Posts List -->
         <div id="postsContainer" class="posts-container">
             <div class="loading">

@@ -1,5 +1,5 @@
 // API URL
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3001';
 
 // State
 let posts = [];
@@ -7,6 +7,8 @@ let comments = [];
 let editingPostId = null;
 let editingCommentId = null;
 let editingPostIdForComment = null;
+let filterStatus = 'all'; // all, active, deleted
+let sortBy = 'default'; // default, viewsAsc, viewsDesc, commentsAsc, commentsDesc, titleAsc
 
 // DOM Elements
 const postsContainer = document.getElementById('postsContainer');
@@ -39,20 +41,79 @@ async function loadData() {
         postsContainer.innerHTML = `
             <div style="padding: 30px; text-align: center; color: #ff6b6b;">
                 <strong>Error:</strong> ${error.message}<br>
-                <small>Make sure json-server is running on port 3000</small>
+                <small>Make sure json-server is running on port 3001</small>
             </div>
         `;
     }
 }
 
-// Display posts
-function displayPosts() {
-    if (posts.length === 0) {
-        postsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><br>No posts yet. Create one!</div>';
-        return;
+// Filter and sort posts
+function filterAndDisplay() {
+    let filtered = posts.slice();
+
+    // Apply filter status
+    if (filterStatus === 'active') {
+        filtered = filtered.filter(p => !p.isDeleted);
+    } else if (filterStatus === 'deleted') {
+        filtered = filtered.filter(p => p.isDeleted);
     }
 
-    const postsHTML = posts.map(post => {
+    // Apply search
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    if (searchTerm) {
+        filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm));
+    }
+
+    // Apply sort
+    if (sortBy === 'viewsAsc') {
+        filtered.sort((a, b) => (a.views || 0) - (b.views || 0));
+    } else if (sortBy === 'viewsDesc') {
+        filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+    } else if (sortBy === 'commentsAsc') {
+        const commentCounts = {};
+        comments.forEach(c => {
+            if (!commentCounts[c.postId]) commentCounts[c.postId] = 0;
+            if (!c.isDeleted) commentCounts[c.postId]++;
+        });
+        filtered.sort((a, b) => (commentCounts[a.id] || 0) - (commentCounts[b.id] || 0));
+    } else if (sortBy === 'commentsDesc') {
+        const commentCounts = {};
+        comments.forEach(c => {
+            if (!commentCounts[c.postId]) commentCounts[c.postId] = 0;
+            if (!c.isDeleted) commentCounts[c.postId]++;
+        });
+        filtered.sort((a, b) => (commentCounts[b.id] || 0) - (commentCounts[a.id] || 0));
+    } else if (sortBy === 'titleAsc') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    displayPostsWithData(filtered);
+}
+
+// Set filter status
+function setFilter(status) {
+    filterStatus = status;
+    document.getElementById('filterAll').classList.remove('active');
+    document.getElementById('filterActive').classList.remove('active');
+    document.getElementById('filterDeleted').classList.remove('active');
+    
+    if (status === 'all') document.getElementById('filterAll').classList.add('active');
+    if (status === 'active') document.getElementById('filterActive').classList.add('active');
+    if (status === 'deleted') document.getElementById('filterDeleted').classList.add('active');
+}
+
+// Set sort by
+function setSortBy(type) {
+    sortBy = type;
+}
+
+// Display posts
+function displayPosts() {
+    filterAndDisplay();
+}
+
+// Display posts with provided data
+function displayPostsWithData(postsToDisplay) {
         const postComments = comments.filter(c => c.postId === post.id);
         const isDeleted = post.isDeleted;
 
