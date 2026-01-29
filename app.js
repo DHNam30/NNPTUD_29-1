@@ -147,16 +147,20 @@ function displayTable() {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="width: 10%;">Image</th>
-                        <th style="width: 25%;">Product Name</th>
-                        <th style="width: 40%;">Description</th>
-                        <th style="width: 15%;">Price</th>
-                        <th style="width: 10%;">Action</th>
+                        <th style="width: 8%;">ID</th>
+                        <th style="width: 8%;">Image</th>
+                        <th style="width: 22%;">Product Name</th>
+                        <th style="width: 35%;">Description</th>
+                        <th style="width: 12%;">Price</th>
+                        <th style="width: 15%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${paginatedProducts.map(product => `
                         <tr>
+                            <td>
+                                <strong>#${product.id}</strong>
+                            </td>
                             <td>
                                 <img src="${product.image}" alt="${product.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
                             </td>
