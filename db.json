@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Fire Red Sport Sneakers",
+      "price": 95,
+      "image": "https://i.imgur.com/PgK0RMZ.png",
+      "description": "Bold red sneakers designed for those who love speed and style. Features advanced grip technology."
+    },
+    {
+      "id": 2,
+      "name": "Aggressive Black & Red Sneakers",
+      "price": 110,
+      "image": "https://i.imgur.com/vPjonMX.png",
+      "description": "Dynamic color-block design in black and red. Built for durability and high-impact activities."
+    },
+    {
+      "id": 3,
+      "name": "Minimalist White Sport Smartwatch",
+      "price": 150,
+      "image": "https://i.imgur.com/3V4VwdP.png",
+      "description": "Stay connected and track your fitness with this sleek white smartwatch. Features heart rate monitoring, GPS, and a water-resistant design."
+    },
+    {
+      "id": 4,
+      "name": "Premium Black Wireless Headset",
+      "price": 120,
+      "image": "https://i.imgur.com/uAbpeVs.png",
+      "description": "Experience high-fidelity sound with these over-ear wireless headphones. Noise-canceling technology and 40-hour battery life."
+    },
+    {
+      "id": 5,
+      "name": "Waterproof Bluetooth Earbuds",
+      "price": 80,
+      "image": "https://i.imgur.com/BEZlrr6.png",
+      "description": "Compact and powerful earbuds perfect for the gym or rainy commutes. IPX7 waterproof rating and seamless Bluetooth pairing."
+    },
+    {
+      "id": 6,
+      "name": "Ultra HD 4K Camera",
+      "price": 1200,
+      "image": "https://placehold.co/600x400?text=4K+Camera",
+      "description": "Professional-grade digital camera with 4K video recording, optical stabilization, and advanced autofocus system for stunning visuals."
+    }
+  ]
+}
